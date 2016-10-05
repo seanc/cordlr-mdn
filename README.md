@@ -10,7 +10,7 @@ $ cordlr install cordlr-mdn
 
 Then add it to your config.
 
-```json
+```js
 {
   "plugins": [
     "cordlr-mdn"
