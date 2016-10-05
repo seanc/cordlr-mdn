@@ -5,14 +5,23 @@
 ## Installation
 
 ```sh
-$ npm install --save cordlr-mdn
+$ cordlr install cordlr-mdn
 ```
 
-## Usage
+Then add it to your config.
 
-```js
-var cordlrMdn = require('cordlr-mdn');
-cordlrMdn();
+```json
+{
+  "plugins": [
+    "cordlr-mdn"
+  ],
+  "mdn": {
+    "format": "**{{title}}**:\n{{description}}\n{{url}}", // How to format the response
+    "unknown": "Couldn't find anything for query `{{query}}`", // What do we do if there wasn't anything returned back
+    "max": "1", // How many results to return, to return all use 'Infinity', default 1
+    "code": false // Should we sent it in a code block
+  }
+}
 ```
 
 ## License
