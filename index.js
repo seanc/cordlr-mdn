@@ -2,7 +2,12 @@ const search = require('scrape-mdn').search;
 const pixie = require('pixie');
 
 function mdn(bot, config) {
+  config = config[config.name] || {};
   const max = config.max === 'all' ? Infinity : config.max || 1;
+  const format = config.format || '**{{title}}**:\n{{description}}\n{{url}}';
+  const unknown = config.unknown || 'Couldn\'t find anything for query `{{query}}`';
+  const code = config.code || false;
+  
   return function run(message, args) {
     if (!args.length) {
       return message.reply('You must specify at least one search parameter');
