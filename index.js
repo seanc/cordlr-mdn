@@ -7,7 +7,7 @@ function mdn(bot, config) {
   const format = config.format || '**{{title}}**:\n{{description}}\n{{url}}';
   const unknown = config.unknown || 'Couldn\'t find anything for query `{{query}}`';
   const code = config.code || false;
-  
+
   return function run(message, args) {
     if (!args.length) {
       return message.reply('You must specify at least one search parameter');
@@ -16,7 +16,7 @@ function mdn(bot, config) {
     const query = args.join(' ');
     search(query).then(results => {
       if (!results.length) {
-        return message.reply(pixie.render(config.mdn.unknown, {query}));
+        return message.reply(pixie.render(unknown, {query}));
       }
 
       const reply = [];
@@ -24,10 +24,10 @@ function mdn(bot, config) {
       for (let i = 0; i < max; i++) {
         const result = results[i];
         results.query = query;
-        reply.push(pixie.render(config.mdn.format, result));
+        reply.push(pixie.render(format, result));
       }
 
-      if (config.mdn.code) message.channel.sendCode(null, reply.join('\n'), {split: true})
+      if (code) message.channel.sendCode(null, reply.join('\n'), {split: true})
       else message.channel.sendMessage(reply.join('\n'), {split: true});
     });
   }
